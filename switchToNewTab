@@ -1,0 +1,29 @@
+from selenium import webdriver
+import time
+import math
+import os
+
+try:
+    link = " http://suninjuly.github.io/redirect_accept.html"
+    browser = webdriver.Chrome()
+    browser.get(link)
+
+    button1 = browser.find_element_by_class_name("btn")
+    button1.click()
+
+    new_window = browser.window_handles[1]
+    browser.switch_to.window(new_window)
+
+    x_element = browser.find_element_by_id('input_value')
+    x = x_element.text
+    c = math.log(abs(12 * math.sin(int(x))))
+    print(c)
+
+    textarea = browser.find_element_by_id("answer")
+    textarea.send_keys(str(c))
+    button = browser.find_element_by_class_name("btn")
+    button.click()
+
+finally:
+    time.sleep(10)
+    browser.quit()
